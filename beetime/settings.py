@@ -6,6 +6,8 @@ from aqt.qt import *
 
 from sync import BEE
 
+from PyQt4 import QtGui
+
 class BeeminderSettings(QDialog):
     """Create a settings menu."""
     def __init__(self):
@@ -19,8 +21,18 @@ class BeeminderSettings(QDialog):
 
         self.connect(self.ui.buttonBox, SIGNAL("rejected()"), self.onReject)
         self.connect(self.ui.buttonBox, SIGNAL("accepted()"), self.onAccept)
+        self.connect(self.ui.buttonBox, SIGNAL("helpRequested()"), self.onHelp)
+        self.connect(self.ui.buttonBox.button(QtGui.QDialogButtonBox.Apply), SIGNAL("clicked()"), self.onApply)
+        self.connect(self.ui.buttonBox.button(QtGui.QDialogButtonBox.Reset), SIGNAL("clicked()"), self.onReset)
 
-    def display(self, parent):
+    def onHelp(self):
+        pass
+
+    def onReset(self):
+        self.bc.nuke()
+        self.populate()
+
+    def populate(self):
         self.ui.username.setText(self.bc.tget('username'))
         self.ui.token.setText(self.bc.tget('token'))
         self.ui.enabled.setChecked(self.bc.tget('enabled'))
@@ -42,6 +54,8 @@ class BeeminderSettings(QDialog):
         self.ui.due_slug.setText(self.bc.get('due', 'slug'))
         self.ui.due_enabled.setChecked(self.bc.get('due', 'enabled'))
 
+    def display(self, parent):
+        self.populate()
         self.parent = parent
         self.show()
 
