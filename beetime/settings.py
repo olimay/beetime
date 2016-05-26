@@ -4,8 +4,6 @@ from settings_layout import Ui_BeeminderSettings
 from aqt import mw
 from aqt.qt import *
 
-from sync import BEE
-
 from PyQt4 import QtGui
 
 class BeeminderSettings(QDialog):
