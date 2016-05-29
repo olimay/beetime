@@ -1,6 +1,6 @@
 from api import getApi, sendApi
 from lookup import *
-from util import getDayStamp
+from util import getDaystamp
 
 from aqt import mw, progress
 
@@ -37,14 +37,12 @@ def syncDispatch(col=None, at=None):
     deadline = datetime.datetime.fromtimestamp(col.sched.dayCutoff).hour
     now = datetime.datetime.today()
 
-    # upload all datapoints with an artificial time of 12 pm (noon)
-    NOON = 12
     if now.hour < deadline:
-        reportDatetime = datetime.datetime(now.year, now.month, now.day - 1, NOON)
+        reportTime = datetime.datetime(now.year, now.month, now.day - 1)
     else:
-        reportDatetime = datetime.datetime(now.year, now.month, now.day, NOON)
+        reportTime = datetime.datetime(now.year, now.month, now.day)
     # convert the datetime object to a Unix timestamp
-    reportTimestamp = time.mktime(reportDatetime.timetuple())
+    reportTimestamp = time.mktime(reportTime.timetuple())
 
     if isEnabled('time') or isEnabled('reviewed'):
         numberOfCards, reviewTime = lookupReviewed(col)
@@ -89,11 +87,14 @@ def prepareApiCall(col, timestamp, value, comment, goal_type='time'):
     from config import beeconf
     bc = beeconf()
 
+    daystamp = getDaystamp(timestamp)
+
     user = bc.tget('username')
     token = bc.tget('token')
     slug = bc.get(goal_type, 'slug')
     data = {
-        "timestamp": timestamp,
+        "daystamp": daystamp,
+        "measured_at": timestamp,
         "value": value,
         "comment": comment,
         "auth_token": token}
