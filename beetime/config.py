@@ -13,8 +13,6 @@ class beeconf():
         self.bee = self.col.conf[BEE]
         self.check()
 
-        print("Succesfully initialized the conf object.")
-
     def store(self):
         self.col.conf[BEE] = self.bee
         self.save()
