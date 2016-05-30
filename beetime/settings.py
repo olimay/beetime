@@ -72,6 +72,7 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
         self.ui.startup.setChecked(self.bc.tget('startup'))
         self.ui.shutdown.setChecked(self.bc.tget('shutdown'))
         self.ui.ankiweb.setChecked(self.bc.tget('ankiweb'))
+        self.ui.odo.setChecked(self.bc.tget('odo'))
 
         self.ui.time_units.setCurrentIndex(self.bc.get('time', 'units'))
         self.ui.added_type.setCurrentIndex(self.bc.get('added', 'type'))
@@ -83,6 +84,7 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
         self.ui.reviewed_enabled.setChecked(self.bc.get('reviewed', 'enabled'))
 
         self.ui.added_slug.setText(self.bc.get('added', 'slug'))
+        self.ui.added_odo.setChecked(self.bc.get('added', 'odo'))
         self.ui.added_enabled.setChecked(self.bc.get('added', 'enabled'))
 
         self.ui.due_slug.setText(self.bc.get('due', 'slug'))
@@ -107,6 +109,7 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
         self.bc.tset('startup', self.ui.startup.isChecked())
         self.bc.tset('shutdown', self.ui.shutdown.isChecked())
         self.bc.tset('ankiweb', self.ui.ankiweb.isChecked())
+        self.bc.tset('odo', self.ui.odo.isChecked())
 
         self.bc.set('time', 'units', self.ui.time_units.currentIndex())
         self.bc.set('added', 'type', self.ui.added_type.currentIndex())
@@ -120,6 +123,7 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
         self.bc.set('reviewed', 'overwrite', self.ui.reviewed_overwrite.isChecked())
 
         self.bc.set('added', 'slug', self.ui.added_slug.text())
+        self.bc.set('added', 'odo', self.ui.added_odo.isChecked())
         self.bc.set('added', 'enabled', self.ui.added_enabled.isChecked())
         self.bc.set('added', 'overwrite', self.ui.added_overwrite.isChecked())
 
