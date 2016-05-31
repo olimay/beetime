@@ -169,7 +169,7 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
 
         self.bc.store()
 
-        self.toggleManualSync()
+        self.toggleSync()
 
     def toggleSync(self):
         mw.beetimeSync.setEnabled(self.bc.tget('enabled'))
