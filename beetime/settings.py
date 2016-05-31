@@ -2,6 +2,7 @@ from settings_layout import Ui_BeeminderSettings
 
 from aqt import mw
 from aqt.qt import *
+from aqt.utils import askUser
 
 from PyQt4 import QtGui
 
@@ -95,8 +96,10 @@ Please report bugs or feature requests over <a href="http://forum.beeminder.COM/
         self.helpDialog.show()
 
     def onReset(self):
-        self.bc.nuke()
-        self.populate()
+        if askUser("Resetting while clear all your settings. Continue?", defaultno=True):
+            self.bc.nuke()
+            self.populate()
+            self.close()
 
     def populate(self):
         self.ui.username.setText(self.bc.tget('username'))
