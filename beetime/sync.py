@@ -38,10 +38,9 @@ def syncDispatch(col=None, at=None):
     deadline = datetime.datetime.fromtimestamp(col.sched.dayCutoff).hour
     now = datetime.datetime.today()
 
+    reportTime = datetime.datetime(now.year, now.month, now.day)
     if now.hour < deadline:
-        reportTime = datetime.datetime(now.year, now.month, now.day - 1)
-    else:
-        reportTime = datetime.datetime(now.year, now.month, now.day)
+        reportTime -= datetime.timedelta(days=1)
     # convert the datetime object to a Unix timestamp
     reportTimestamp = time.mktime(reportTime.timetuple())
 
